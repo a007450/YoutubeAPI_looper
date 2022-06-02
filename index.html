@@ -47,7 +47,7 @@
 
 				if (src) {
 					player = new YT.Player('player', {
-						height : '450',
+						height : '100%',
 						width : '100%',
 						playerVars : {
 							'autoplay' : 0,
@@ -103,7 +103,7 @@
 				url = "http://www.youtube.com/v/" + s + "?version=3";
 				player.cueVideoByUrl(url);
 				$('#src').text(s);
-                $('#url').text(window.location.origin + window.location + '?v=' + s);
+                		$('#url').text(window.location.origin + window.location + '?v=' + s);
 			}
 
 			function SetSpeed(n) {
@@ -125,16 +125,16 @@
 			function LoopSegment() {
 
 				const start = $("#start_t").val(),
-                      v = $("#src").text(),
-                      t = player.getDuration();
+                      		v = $("#src").text(),
+                      		t = player.getDuration();
 
 				end =  $("#end_t").val();
 
-                if (Number(end) > t){ console.log(t);
-                    end = t;
-                    $("#end_t").val(t);
-                }
-                $('#url').text(window.location.origin + window.location.pathname + '?v=' + v + '&i=' + start + '&t=' + end);
+				if (Number(end) > t){ console.log(t);
+				    end = t;
+				    $("#end_t").val(t);
+				}
+				$('#url').text(window.location.origin + window.location.pathname + '?v=' + v + '&i=' + start + '&t=' + end);
 
 				player.pauseVideo();
 				player.seekTo(start, true);
@@ -153,14 +153,18 @@
 			div {
 				height: 50px;
 				margin: 1em;
-                display: flex;
-                gap: 5px;
+				display: flex;
+				gap: 5px;
 			}
 
-            div.controls {
-                height: 75px;
-            }
+		    	div.controls {
+				height: 75px;
+		    	}
 
+			div.vid-container {
+				height:60vh;
+			}
+			
 			span {
 				margin: 0.3em;
 				padding: 0.5em 1em 0.2em 1em;
@@ -170,7 +174,7 @@
 				width: 100px;
 				height: 100%;
 				text-align: center;
-                outline: 1px solid #999;
+                		outline: 1px solid #999;
 			}
 
 			.box {
@@ -178,9 +182,9 @@
 				min-width: 230px;
 			}
 
-            .btn{
-                flex:auto;
-            }
+		    	.btn{
+				flex:auto;
+		    	}
 			label {
 				font-size: .8em;
 				color: #fff;
@@ -193,19 +197,20 @@
 		</style>
 	</head>
 	<body>
-        <div>
+        	<div>
 			<span id='src' class="box" contenteditable="true">&nbsp;</span>
 			<button type="button" class="btn btn-success" onclick="UpdateVideoSrc( $('#src').text() )" > LOAD VIDEO </button>
-            <span id='url' class="alert alert-light" ></span>
+            		<span id='url' class="alert alert-light" ></span>
 		</div>
-		
-        <div id='player'></div>
+		<div class="vid-container">
+        		<div id='player'></div>
+		</div>
 
 		<div class="controls">
 			<input class="input" id='start_t' type="number"  inputmode="numeric"  step="1" min="0" width="200"/>
 			<input class="input" id='end_t' type="number"  inputmode="numeric" step="1" min="1" width="200"/>
 			<button type="button" class="btn btn-primary btn-lg" onclick="LoopSegment()" > Loop Segment </button>
-            <span id="current_t" class="alert alert-light" > 0 </span>
+            		<span id="current_t" class="alert alert-light" > 0 </span>
 			<button type="button" class="btn btn-primary btn-lg" onclick="SetStart()"> SET IN </button>
 			<button type="button" class="btn btn-primary btn-lg" onclick="SetEnd()"> SET OUT </button>
 		</div>
